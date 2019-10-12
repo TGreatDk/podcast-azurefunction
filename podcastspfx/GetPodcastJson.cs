@@ -17,7 +17,7 @@ namespace podcastspfx
     {
         [FunctionName("GetPodcastJson")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
@@ -77,14 +77,7 @@ namespace podcastspfx
 
             return (ActionResult)new OkObjectResult(JsonConvert.SerializeObject(response));
         }
-
-        [FunctionName("Hello")]
-        public static async Task<IActionResult> Hello([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req, ILogger log)
-        {
-            var objs = new string[] { "Hello", "Bounjour", "Nihao", "Gutentag", "Hola",DateTime.Now.ToLongTimeString() };
-            return (ActionResult)new ObjectResult(JsonConvert.SerializeObject(objs));
-        }
-
+       
         public class Response
         {
             [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
